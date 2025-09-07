@@ -1,0 +1,31 @@
+{% extends "predictor/main.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <a href="{% url 'display_data' %}" class="btn btn-secondary mb-3">← Back to Scraped Data</a>
+
+    <h1 class="mb-4">Predicted Prices for {{ coin_selected }}</h1>
+    <p>Predictions based on the last {{ hours }} hourly data points.</p>
+
+    <div class="table-container">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Hour</th>
+                    <th>Predicted Price (USD)</th>
+                    <th>Confidence Interval</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for price, interval in predictions %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>${{ price|floatformat:2 }}</td>
+                    <td>${{ interval.0|floatformat:2 }} - ${{ interval.1|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
