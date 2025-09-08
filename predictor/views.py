@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .scraper import fetch_recent_data
 from .models import CoinHistory
 from django.http import JsonResponse
@@ -9,10 +10,15 @@ import pickle
 
 COINS = ["BTCUSDT", "ETHUSDT"]
 
+def landing_page(request):
+    return render(request, 'predictor/landing.html')
+
+@login_required
 def home(request):
     context = {"coins": COINS}
     return render(request, "predictor/main.html", context)
 
+@login_required
 def scrape_coin(request, coin):
     if coin not in COINS:
         return JsonResponse({"error": "Invalid coin"}, status=400)
@@ -47,7 +53,7 @@ def scrape_coin(request, coin):
         import traceback
         traceback.print_exc()
         return redirect("home")
-
+@login_required
 def display_data(request):
     coin_selected = request.session.get("coin_selected")
     context = {"coins": COINS}
@@ -63,6 +69,7 @@ def display_data(request):
     
     return render(request, "predictor/display_data.html", context)
 
+@login_required
 def predict_coin(request, coin):
     if coin not in COINS:
         return redirect("home")

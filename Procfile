@@ -1,0 +1,1 @@
+web guicorn cryptPredictor.wsgi --log-file

@@ -1,0 +1,244 @@
+
+
+{% extends "predictor/home.html" %}
+
+{% block title %}CryptoPredictor - AI-Powered Cryptocurrency Price Predictions{% endblock %}
+
+{% block content %}
+<style>
+        :root {
+            --primary-color: #6f42c1;
+            --secondary-color: #0dcaf0;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .login-reg {
+            width: 100%;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.4);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-text {
+            margin-bottom: 2rem;
+        }
+
+        .section-text .sub-title {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-text .title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-text p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .section-text a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .section-text a:hover {
+            text-decoration: underline;
+        }
+
+        .single-input {
+            margin-bottom: 1.5rem;
+        }
+
+        .single-input label {
+            display: block;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .single-input input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .single-input input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(13, 202, 240, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .single-input input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .cmn-btn {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .cmn-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .or {
+            display: block;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .or:before,
+        .or:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .or:before {
+            left: 0;
+        }
+
+        .or:after {
+            right: 0;
+        }
+
+        .reg-google {
+            margin-bottom: 1.5rem;
+        }
+
+        .reg-google a {
+            display: block;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .reg-google a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .glass-card {
+                padding: 2rem;
+            }
+        }
+</style>
+
+<section class="login-reg">
+        <div class="overlay pt-120">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-5 col-lg-6 col-md-8">
+                        <div class="glass-card">
+                            <div class="section-text text-center">
+                                <h5 class="sub-title">Account</h5>
+                                <h2 class="title">Welcome to CryptoPredictor</h2>
+                                <p class="dont-acc">Already have an account? <a href="{% url 'userauth:signin' %}">Login here</a></p>
+                            </div>
+                            
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Username Field -->
+                                        <div class="single-input">
+                                            <label for="username">Enter Username</label>
+                                            <input type="text" id="username" name="username" placeholder="Choose your username" required>
+                                        </div>
+                                        
+                                        <!-- Email Field -->
+                                        <div class="single-input">
+                                            <label for="email">Enter Email</label>
+                                            <input type="email" id="email" name="email" placeholder="Your email address" required>
+                                        </div>
+                                        
+                                        <!-- Password Field -->
+                                        <div class="single-input">
+                                            <label for="password1">Enter Password</label>
+                                            <input type="password" id="password1" name="password1" placeholder="Create a strong password" required>
+                                        </div>
+                                        
+                                        <!-- Confirm Password Field -->
+                                        <div class="single-input">
+                                            <label for="password2">Confirm Password</label>
+                                            <input type="password" id="password2" name="password2" placeholder="Confirm your password" required>
+                                        </div>
+                                        
+                                        <button class="cmn-btn w-100" type="submit">
+                                            <i class="fas fa-user-plus me-2"></i>Sign Up
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ {% endblock content %}
