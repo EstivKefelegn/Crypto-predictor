@@ -12,40 +12,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-from decouple import config
 
-load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "django-insecure-cnvlf3cv!5-*)l0gk8am624(8dzzvqs!ijqq#kq4$%iuwsvn_e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = True
 
-ALLOWED_HOSTS = ["JETCryptoTrade.up.railway.app"]
+ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://JETCryptoTrade.up.railway.app"
-    ]
-
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SECURE_HSTS_SECONDS = 3600  # or higher
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-CSRF_COOKIE_SECURE = False
-CSRF_USE_SESSIONS = False
 
 # Application definition
 
@@ -97,8 +79,8 @@ WSGI_APPLICATION = "cryptPredictor.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get('ENGINE'),
-           'NAME': os.path.join(BASE_DIR, config('DB_NAME', default='db.sqlite3')),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
