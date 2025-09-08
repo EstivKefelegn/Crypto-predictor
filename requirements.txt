@@ -19,6 +19,7 @@ dj-database-url==3.0.1
 Django==4.2.24
 fonttools==4.59.2
 frozenlist==1.7.0
+gunicorn==23.0.0
 hyperlink==21.0.0
 idna==3.10
 importlib_resources==6.5.2
@@ -33,6 +34,7 @@ packaging==25.0
 pandas==2.3.2
 pillow==11.3.0
 propcache==0.3.2
+psycopg2-binary==2.9.10
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pycparser==2.22
