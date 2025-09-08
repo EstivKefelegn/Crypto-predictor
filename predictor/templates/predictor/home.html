@@ -183,8 +183,9 @@
                             <a class="nav-link" href="{% url 'userauth:signin' %}">Login</a>
                         {% endif %}
                     </li>
-                    
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#stats">Sign up</a></li>
+                    {% if not user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}#stats">Sign up</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
