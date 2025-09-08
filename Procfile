@@ -1,1 +1,1 @@
-web guicorn cryptPredictor.wsgi --log-file
+web: gunicorn cryptPredictor.wsgi --log-file=-
